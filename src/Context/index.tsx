@@ -11,7 +11,7 @@ interface CartItem {
 
 interface ContextProps {
   cart: CartItem[];
-  numberCart: number;
+  qtdCart: number;
 }
 
 interface ChildrenProps {
@@ -23,7 +23,7 @@ export const userContext = createContext({} as ContextProps);
 export function Context({ children }: ChildrenProps) {
   const [cart, setcart] = useState<CartItem[]>([]);
   return (
-    <userContext.Provider value={{ cart, numberCart: cart.length }}>
+    <userContext.Provider value={{ cart, qtdCart: cart.length }}>
       {children}
     </userContext.Provider>
   );
