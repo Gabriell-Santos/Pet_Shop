@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ImgTeste from "../../Assets/Imagem_Teste.jpeg";
 import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { api } from "../../Api";
@@ -40,12 +39,14 @@ export function Home() {
             key={item.id}
             className="flex flex-col gap-2 border border-gray-200 rounded-xl p-3 "
           >
-            <img
-              src={item.cover}
-              alt={item.title}
-              className="w-full rounded-lg object-cover"
-            />
-            <p className="font-medium text-sm text-center"> {item.title} </p>
+            <Link to={"/details"}>
+              <img
+                src={item.cover}
+                alt={item.title}
+                className="w-full rounded-lg object-cover"
+              />
+              <p className="font-medium text-sm text-center"> {item.title} </p>
+            </Link>
             <span className="flex justify-between items-center mt-auto">
               <p className="text-green-600 font-semibold">
                 {item.price.toLocaleString("pt-br", {

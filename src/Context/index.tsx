@@ -7,6 +7,7 @@ interface CartItem {
   description: string;
   subTotal: number;
   cover: string;
+  total: string;
 }
 
 interface ContextProps {
