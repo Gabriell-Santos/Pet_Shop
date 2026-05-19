@@ -1,21 +1,14 @@
 import { useEffect, useState } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
+import type { ProductProps } from "../../Type/product";
 import { api } from "../../Api";
-
-interface ProductProps {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  cover: string;
-}
 
 export function Home() {
   // Armazenando os dados da Api
   const [product, setProduct] = useState<ProductProps[]>([]);
 
-  // Buscando os dados da api assim que aplicar na página
+  // Buscando os dados da api assim que abrir a página
   useEffect(() => {
     try {
       async function getDada() {
