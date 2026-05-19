@@ -55,13 +55,13 @@ export function Home() {
                   currency: "BRL",
                 })}
               </p>
-              <Link to={"/cart"}>
+              <button>
                 <MdAddShoppingCart
                   onClick={() => handleAdd(item)}
                   size={22}
                   className="text-gray-600 hover:text-green-600 transition-colors"
                 />
-              </Link>
+              </button>
             </span>
           </div>
         ))}
