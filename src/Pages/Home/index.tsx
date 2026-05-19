@@ -3,8 +3,11 @@ import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import type { ProductProps } from "../../Type/product";
 import { api } from "../../Api";
+import { userContext } from "../../Context";
+import { useContext } from "react";
 
 export function Home() {
+  const { addItem } = useContext(userContext);
   // Armazenando os dados da Api
   const [product, setProduct] = useState<ProductProps[]>([]);
 
@@ -20,6 +23,11 @@ export function Home() {
       console.log(error);
     }
   }, []);
+
+  // Função para adicionar o produto no carrinho
+  function handleAdd(item: ProductProps) {
+    addItem(item);
+  }
 
   return (
     <main className="mt-6 w-full max-w-7xl font-PetShop px-4 mx-auto">
@@ -49,6 +57,7 @@ export function Home() {
               </p>
               <Link to={"/cart"}>
                 <MdAddShoppingCart
+                  onClick={() => handleAdd(item)}
                   size={22}
                   className="text-gray-600 hover:text-green-600 transition-colors"
                 />
