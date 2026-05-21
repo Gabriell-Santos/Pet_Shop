@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 export function Cart() {
-  const { cart } = useContext(userContext);
+  const { cart, addItem, preview, DeleteItem } = useContext(userContext);
 
   return (
     <div className="w-full max-w-7xl px-4 py-6 font-PetShop mx-auto">
@@ -47,16 +47,22 @@ export function Cart() {
                   {item.price.toLocaleString("pt-br", {
                     style: "currency",
                     currency: "BRL",
-                  })}{" "}
+                  })}
                   / un
                 </p>
 
                 <div className="flex items-center gap-3 mt-2">
-                  <button className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100">
+                  <button
+                    onClick={() => DeleteItem(item)}
+                    className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100"
+                  >
                     <MdRemove size={16} />
                   </button>
                   <span className="text-sm font-medium">{item.amount}</span>
-                  <button className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100">
+                  <button
+                    onClick={() => addItem(item)}
+                    className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100"
+                  >
                     <MdAdd size={16} />
                   </button>
                 </div>
@@ -75,6 +81,17 @@ export function Cart() {
               </div>
             </div>
           ))}
+
+          {preview.length > 0 && (
+            <div className="mt-6 border-t border-gray-200 pt-4 flex justify-between items-center">
+              <span className="font-bold text-gray-800 text-base">
+                Total a pagar
+              </span>
+              <span className="text-green-600 font-bold text-xl">
+                {preview}
+              </span>
+            </div>
+          )}
 
           <button className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded-xl transition-colors">
             Finalizar compra

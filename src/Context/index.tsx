@@ -15,6 +15,8 @@ interface ContextProps {
   cart: CartItem[];
   qtdCart: number;
   addItem: (item: ProductProps) => void;
+  preview: string;
+  DeleteItem: (item: CartItem) => void;
 }
 
 interface ChildrenProps {
@@ -25,32 +27,65 @@ export const userContext = createContext({} as ContextProps);
 
 export function Context({ children }: ChildrenProps) {
   const [cart, setcart] = useState<CartItem[]>([]);
+  const [preview, setPreview] = useState("");
 
-  // Função para adicionar um item ao carrinho
+  // Função de adicionar Item
   function addItem(item: ProductProps) {
-    // Verificar se o item já existe no carrinho
     const indexItem = cart.findIndex((CartItem) => CartItem.id === item.id);
     if (indexItem !== -1) {
-      // Se o item já existe, atualizar a quantidade
       const cartlist = cart;
       cartlist[indexItem].amount = cartlist[indexItem].amount + 1;
       cartlist[indexItem].total =
-        cartlist[indexItem].total * cartlist[indexItem].amount;
+        cartlist[indexItem].price * cartlist[indexItem].amount;
       setcart(cartlist);
+      resultsTotal(cartlist);
       return;
     }
 
-    // Se o item não existe, adicionar ao carrinho
     const newItem = {
       ...item,
       amount: 1,
       total: item.price,
     };
     setcart((updateItem) => [...updateItem, newItem]);
+    resultsTotal([...cart, newItem]);
+    return;
+  }
+
+  // função de deletar item
+  function DeleteItem(item: CartItem) {
+    const indexItem = cart.findIndex((cartItem) => cartItem.id === item.id);
+    if (cart[indexItem].amount > 1) {
+      let cartlist = cart;
+      cartlist[indexItem].amount = cartlist[indexItem].amount - 1;
+      cartlist[indexItem].total =
+        cartlist[indexItem].total - cartlist[indexItem].price;
+      setcart(cartlist);
+      resultsTotal(cartlist);
+      return;
+    }
+    // Caso seja só um item
+    const deleteItem = cart.filter((product) => product.id !== item.id);
+    setcart(deleteItem);
+  }
+
+  // Função mostrando O valor Total
+  function resultsTotal(itens: CartItem[]) {
+    let mylist = itens;
+    const results = mylist.reduce((acc, obj) => {
+      return acc + obj.total;
+    }, 0);
+    const formated = results.toLocaleString("pt-br", {
+      style: "currency",
+      currency: "BRL",
+    });
+    setPreview(formated);
   }
 
   return (
-    <userContext.Provider value={{ cart, qtdCart: cart.length, addItem }}>
+    <userContext.Provider
+      value={{ cart, qtdCart: cart.length, addItem, preview, DeleteItem }}
+    >
       {children}
     </userContext.Provider>
   );
