@@ -4,7 +4,8 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 export function Cart() {
-  const { cart, addItem, preview, DeleteItem } = useContext(userContext);
+  const { cart, addItem, preview, DeleteItem, ButtonDelete } =
+    useContext(userContext);
 
   return (
     <div className="w-full max-w-7xl px-4 py-6 font-PetShop mx-auto">
@@ -69,7 +70,10 @@ export function Cart() {
               </div>
 
               <div className="flex flex-col items-end justify-between self-stretch">
-                <button className="text-gray-400 hover:text-red-500">
+                <button
+                  onClick={() => ButtonDelete(item)}
+                  className="text-gray-400 hover:text-red-500"
+                >
                   <MdDelete size={20} />
                 </button>
                 <span className="text-green-600 font-semibold text-sm">

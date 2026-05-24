@@ -1,27 +1,29 @@
 import { useEffect, useState } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { ProductProps } from "../../Type/product";
 import { api } from "../../Api";
 import { userContext } from "../../Context";
 import { useContext } from "react";
 
 export function Home() {
+  const navigate = useNavigate();
   const { addItem } = useContext(userContext);
   // Armazenando os dados da Api
   const [product, setProduct] = useState<ProductProps[]>([]);
 
   // Buscando os dados da api assim que abrir a página
+
   useEffect(() => {
-    try {
-      async function getDada() {
+    async function getDada() {
+      try {
         const response = await api.get("/products");
         setProduct(response.data);
+      } catch (error) {
+        console.log(error);
       }
-      getDada();
-    } catch (error) {
-      console.log(error);
     }
+    getDada();
   }, []);
 
   // Função para adicionar o produto no carrinho
@@ -40,14 +42,14 @@ export function Home() {
             key={item.id}
             className="flex flex-col gap-2 border border-gray-200 rounded-xl p-3 "
           >
-            <Link to={"/details"}>
-              <img
-                src={item.cover}
-                alt={item.title}
-                className="w-full rounded-lg object-cover"
-              />
-              <p className="font-medium text-sm text-center"> {item.title} </p>
-            </Link>
+            <img
+              onClick={() => navigate(`/details/${item.id}`)}
+              src={item.cover}
+              alt={item.title}
+              className="w-full rounded-lg object-cover"
+            />
+            <p className="font-medium text-sm text-center"> {item.title} </p>
+
             <span className="flex justify-between items-center mt-auto">
               <p className="text-green-600 font-semibold">
                 {item.price.toLocaleString("pt-br", {

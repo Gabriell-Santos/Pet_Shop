@@ -17,6 +17,7 @@ interface ContextProps {
   addItem: (item: ProductProps) => void;
   preview: string;
   DeleteItem: (item: CartItem) => void;
+  ButtonDelete: (item: CartItem) => void;
 }
 
 interface ChildrenProps {
@@ -82,9 +83,22 @@ export function Context({ children }: ChildrenProps) {
     setPreview(formated);
   }
 
+  // função do butão de deleta
+  function ButtonDelete(item: CartItem) {
+    const newItem = cart.filter((product) => product.id !== item.id);
+    setcart(newItem);
+    resultsTotal(newItem);
+  }
   return (
     <userContext.Provider
-      value={{ cart, qtdCart: cart.length, addItem, preview, DeleteItem }}
+      value={{
+        cart,
+        qtdCart: cart.length,
+        addItem,
+        preview,
+        DeleteItem,
+        ButtonDelete,
+      }}
     >
       {children}
     </userContext.Provider>
