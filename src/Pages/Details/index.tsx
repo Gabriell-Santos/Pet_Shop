@@ -12,7 +12,7 @@ export function Details() {
   const { addItem } = useContext(userContext);
   const { id } = useParams();
   const [product, setProduct] = useState<ProductProps>();
-  // Redenrizar os dados
+  // Reedenrizar os dados
   useEffect(() => {
     async function getProduct() {
       try {
@@ -30,7 +30,7 @@ export function Details() {
       <div className="flex-1">
         <img
           src={product?.cover}
-          alt="Ração Para Cão"
+          alt={product?.id}
           className="w-full max-h-80 object-contain rounded-2xl shadow-lg"
         />
       </div>

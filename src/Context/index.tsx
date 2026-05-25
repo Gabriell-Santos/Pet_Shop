@@ -18,6 +18,9 @@ interface ContextProps {
   preview: string;
   DeleteItem: (item: CartItem) => void;
   ButtonDelete: (item: CartItem) => void;
+  searchProduct: (query: string) => void;
+  loading: boolean;
+  searchResults: ProductProps[];
 }
 
 interface ChildrenProps {
@@ -29,6 +32,25 @@ export const userContext = createContext({} as ContextProps);
 export function Context({ children }: ChildrenProps) {
   const [cart, setcart] = useState<CartItem[]>([]);
   const [preview, setPreview] = useState("");
+  // Campo de busca no Input do Header
+  const [searchResults, setSearchResults] = useState<ProductProps[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Função de buscar Na api
+  async function searchProduct(query: string) {
+    if (query.length < 2) {
+      setSearchResults([]);
+      return;
+    }
+    setLoading(true);
+    const response = await fetch(`http://localhost:3000/products`);
+    const data: ProductProps[] = await response.json();
+    const filtered = data.filter((product) =>
+      product.title.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+    );
+    setSearchResults(filtered);
+    setLoading(false);
+  }
 
   // Função de adicionar Item
   function addItem(item: ProductProps) {
@@ -98,6 +120,9 @@ export function Context({ children }: ChildrenProps) {
         preview,
         DeleteItem,
         ButtonDelete,
+        loading,
+        searchProduct,
+        searchResults,
       }}
     >
       {children}
