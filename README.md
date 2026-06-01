@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# 🐾 Pet Shop Online - Projeto Faculdade
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 
-Currently, two official plugins are available:
+## 📖 Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este projeto foi desenvolvido como parte de um trabalho semestral da faculdade de uns amigos... e eu acabei entrando na causa! 😄
 
-## React Compiler
+A proposta era criar um **pet shop online** onde o usuário pudesse visualizar brinquedos e rações com informações vindas de uma API local. Os requisitos incluíam:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ✅ Design responsivo (mobile e desktop)
+- ✅ Listagem de produtos
+- ✅ Carrinho de compras
+- ✅ Página de detalhes do produto
 
-## Expanding the ESLint configuration
+**Observação:** A parte de finalização da compra ficou com meus amigos, que quiseram desenvolver sozinhos para treinar o front-end. Todo o restante da infraestrutura foi construído por mim.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Tecnologias Utilizadas
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **React** - Biblioteca para construção da interface
+- **TypeScript** - Tipagem estática e maior segurança no código
+- **Tailwind CSS** - Estilização rápida e responsiva
+- **React Router DOM** - Navegação entre páginas
+- **React Icons** - Ícones para uma interface mais bonita
+- **Context API** - Gerenciamento de estado global (carrinho)
+- **json-server** - Simulação de API REST com arquivo db.json
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📦 Funcionalidades
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Consumo de API local (json-server) para listar produtos
+- Layout responsivo para diferentes tamanhos de tela
+- Adicionar/remover itens do carrinho
+- Visualizar detalhes de cada produto
+- Interface limpa e intuitiva
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🖥️ Como executar o projeto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Clone este repositório
+git clone https://github.com/seu-usuario/pet-shop-project.git
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# Acesse a pasta do projeto
+cd pet-shop-project
+
+# Instale as dependências
+npm install
+
+# Execute a API fake com json-server (em um terminal)
+npx json-server --watch db.json
+
+# Em outro terminal, execute a aplicação React
+npm run dev
